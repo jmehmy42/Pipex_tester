@@ -6,10 +6,8 @@ reset='\033[0m'
 log_file="pipex_tester.log"
 
 # Automatically run make to build the project
-echo "Running make to build pipex..."
-make &> make_output.txt
-cat make_output.txt >> "$log_file"
-if grep -q "error" make_output.txt; then
+make re &>> "$log_file"
+if [ $? -ne 0 ]; then
     echo -e "${red}Make failed! Please check the makefile and dependencies.${reset}"
     exit 1
 else
@@ -32,7 +30,7 @@ original_path="$PATH"
 
 test_cases=(
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex"
-    "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex noexitinfile b c d"
+    "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex noexitinfile cat cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile '' '' outfile && cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile cat '' outfile && cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile cat wrongcmd outfile"
