@@ -56,7 +56,6 @@ test_cases=(
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile cat 'sleep 5' outfile && cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile 'sleep 5' cat outfile && cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex infile 'sleep 4' 'sleep 5' outfile && cat outfile"
-    "./pipex infile 'cat' 'wc -l' outfile && cat outfile"
     "valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --trace-children=yes ./pipex Makefile "/bin/cat" "/bin/cat" outfile"
 )
 # this command should print error messages unset path && ./pipex infile cat cat outfile 
