@@ -5,6 +5,17 @@ red='\033[1;31m'    # Bold red
 reset='\033[0m'
 log_file="pipex_tester.log"
 
+# Automatically run make to build the project
+echo "Running make to build pipex..."
+make &> make_output.txt
+cat make_output.txt >> "$log_file"
+if grep -q "error" make_output.txt; then
+    echo -e "${red}Make failed! Please check the makefile and dependencies.${reset}"
+    exit 1
+else
+    echo -e "${green}Make successful!${reset}"
+fi
+
 # Create infile with random text
 echo "Generating infile with random text..."
 echo "This is a randomly generated text file for testing Pipex." > infile
