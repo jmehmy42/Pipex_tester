@@ -6,7 +6,7 @@ reset='\033[0m'
 log_file="pipex_tester.log"
 
 # Automatically run make to build the project
-make re &>> "$log_file"
+(cd ..&& make re) &>> "$log_file"
 if [ $? -ne 0 ]; then
     echo -e "${red}Make failed! Please check the makefile and dependencies.${reset}"
     exit 1
